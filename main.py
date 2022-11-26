@@ -32,7 +32,7 @@ if __name__ == "__main__":
                 time.sleep(5)  # 做一个延时请求，避免过快请求接口被限制访问
 
                 count += 1
-                if count >= 5:
+                if count >= 30:
                     logger.info("抓取超过阈值，暂停10s后继续。")
                     time.sleep(10)
                     count = 0  # 重新计数

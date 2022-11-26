@@ -6,10 +6,10 @@ import logging
 
 
 def GetLogger(filename='crawler.log'):
-    logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
-                        level=logging.INFO)
+    logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s')
     handler = logging.FileHandler(filename=filename, mode='w', encoding='utf-8')
     log = logging.getLogger(__name__)
+    log.setLevel(logging.INFO)
     log.addHandler(handler)
 
     return log

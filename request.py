@@ -53,4 +53,6 @@ class RequestManager:
 
         self.cookie.reset_cookie(res.headers['Set-Cookie'])
 
+        self.log.debug(f"response: {res}")
+
         return res

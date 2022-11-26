@@ -13,8 +13,8 @@ class GeekCrawler:
     def __init__(self, logger=None):
         self.log = logger
         self.products = []
-        self._login()
         self.request_manager = RequestManager(self.log)
+        self._login()
         self.configLoader = ConfigLoader()
         self.persistent_manager = TaskPersistentManager()
         self.finished_articles = self.persistent_manager.read()
@@ -62,6 +62,7 @@ class GeekCrawler:
         method = "POST"
 
         headers = self.request_manager.new_header()
+
         headers["Host"] = "time.geekbang.org"
         headers["Origin"] = "https://time.geekbang.org"
 
@@ -71,7 +72,7 @@ class GeekCrawler:
             "last_learn": 0,
             "learn_status": 0,
             "prev": 0,
-            "size": 20,
+            "size": 50,
             "sort": 1,
             "type": "",
             "with_learn_count": 1
@@ -80,6 +81,7 @@ class GeekCrawler:
         res = self.request_manager.request(method=method, url=url, headers=headers, params=params)
 
         data = res.json().get('data', {})
+        self.log.debug("data: {data}")
         if data:
             self.products += self._parser_products(data, _type)
         else:
@@ -146,6 +148,7 @@ class GeekCrawler:
         res = self.request_manager.request(method="POST", url=url, headers=headers, params=params)
 
         data = res.json().get('data', {})
+        self.log.debug("data: {data}")
         if data:
             keys = ['article_content', 'article_title', 'id', 'audio_download_url']  # 定义要拿取的字段
             article = {key: value for key, value in data.items() if key in keys}
@@ -190,6 +193,7 @@ class GeekCrawler:
             raise Exception(f"获取文章列表接口请求出错，返回内容为：{res.json()}")
 
         data = res.json().get('data', {})
+        self.log.debug("data: {data}")
         if data:
             ids = []
             article_list = data.get('list', [])
