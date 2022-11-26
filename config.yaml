@@ -1,0 +1,12 @@
+
+global_setting:
+  include_articles:
+    - 'demo1'
+  exclude_articles:
+    - 'demo2'
+  file_type: 'md'
+
+account_setting:
+  username:
+  password:
+
